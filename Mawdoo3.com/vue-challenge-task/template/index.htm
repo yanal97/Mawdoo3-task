@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="main.css">
+	<title>
+		Restaurant Manager
+	</title>
+</head>
+
+<body>
+	<h1>Restaurant Manager</h1>
+	<br>
+	<h2>Table Overview</h2>
+
+	<br>
+
+	<div id="form">
+		<div class="container">
+
+			<div class="table" v-for="(i, index) in capacities">
+				<label v-if="available[index]">Table Available <br> Capacity = {{ i }}</label>
+				<span v-if="occupied[index]"> Occpied by {{tableyanal[index]}} <br> Free in {{numberr[index]}} <br> <button @click="Evict(index)">Evict</button></span>
+			</div>
+	
+		</div>
+	
+		<br>
+	
+		<div class="formContainer">
+			<form method="dialog">
+				<h2>New Party</h2>
+				<p>Fill the following form to allocate a table to a party that is waiting to be seated.</p>
+	
+				<input type="number" min="1" required placeholder="Number of People" id="numOfPeople" />
+				<input type="number" min="0" required placeholder="Duration of Stay in Seconds" id="Duration"/>
+				<input type="text" required placeholder="Fuss Message if Evicted" id="message"/>
+				<input type="submit" value="Add" v-on:click="Add"/>
+			</form>
+		</div>
+	</div>
+
+
+	<footer>
+		<label>Copyrights Reserved 2020</label>
+	</footer>
+
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<script>
+		var form = new Vue({
+			el: "#form",
+			data: {
+				numOfPeople: null,
+				Duration: null,
+				message: null,
+				tableyanal: [0,0,0,0,0,0,0,0],
+				numberr: [0,0,0,0,0,0,0,0],
+				capacities: [10, 8, 10, 6, 2, 6, 4, 12],
+				available: [true,true,true,true,true,true,true,true],
+				occupied: [false,false,false,false,false,false,false,false],
+				intervals: [null, null, null, null, null, null, null, null],
+				durations: [0,0,0,0,0,0,0,0]
+			},
+			methods: {
+				Add: function () {
+
+					this.numOfPeople = document.getElementById("numOfPeople").value
+					this.Duration = document.getElementById("Duration").value
+					this.message = document.getElementById("message").value
+					
+					let tableNumber = null;
+
+					let min = 10000
+					
+					this.capacities.forEach((i,index) => {
+						if(this.numOfPeople <= i){
+							if(i < min && this.available[index] == true){
+								min = i
+								tableNumber = index
+							}
+						}
+					})
+					Vue.set(this.occupied, tableNumber, !this.occupied[tableNumber])
+					Vue.set(this.available, tableNumber, !this.available[tableNumber])
+
+					Vue.set(this.tableyanal, tableNumber, this.numOfPeople)
+
+					let x = this.Duration
+
+					let timer = setInterval(() => {
+						x--
+						Vue.set(this.numberr, tableNumber, x)
+						if(x <= 0){
+							clearInterval(timer)
+							Vue.set(this.occupied, tableNumber, false)
+							Vue.set(this.available, tableNumber, true)
+							Vue.set(this.tableyanal, tableNumber, 0)
+							Vue.set(this.numberr, tableNumber, 0)
+						}
+					}, 1000)
+					Vue.set(this.intervals, tableNumber, timer)
+				},
+
+				Evict: function (i){
+					clearInterval(this.intervals[i])
+					Vue.set(this.occupied, i, false)
+					Vue.set(this.available, i, true)
+					Vue.set(this.tableyanal, i, 0)
+					Vue.set(this.numberr, i, 0)
+					alert(this.message)
+				}
+			}
+		})
+	</script>
+</body>
+
+</html>

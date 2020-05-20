@@ -1,0 +1,86 @@
+body {
+    background-color: azure;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.container {
+    width: 75%;
+    display: flex;
+    flex-wrap: wrap;
+    margin: auto;
+    border: 2px solid tomato;
+}
+
+.formContainer {
+    width: 75%;
+    /* display: flex;
+    flex-wrap: wrap; */
+    margin: auto;
+    /* border: 2px solid tomato; */
+}
+
+.table {
+    width: 20%;
+    height: 20vh;
+    border: 1px solid rgb(161, 90, 161);
+    background-color: rgb(161, 90, 161, 0.5);
+    margin: 2%;
+    position: relative;
+}
+
+.table label {
+    color: white;
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    font-size: 1.4em;
+    text-align: center;
+}
+
+.table span {
+    color: white;
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    font-size: 1.4em;
+    text-align: center;
+}
+
+input[type=text],
+input[type=number] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input[type=submit] {
+    background-color: grey;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 3px;
+    margin-left: 48%;
+    margin-top: 2%;
+}
+
+footer {
+    margin-top: 10%;
+}
+
+footer label {
+    margin-left: 47%;
+}
